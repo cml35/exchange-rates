@@ -5,7 +5,7 @@ import { reOrder, setCurrency } from '../action';
 import PropTypes from 'prop-types';
 import Currency from './Currency';
 
-function OverTime({ reOrder, order, currency, secondcurrency, setCurrency }) {
+function OverTime({ reOrder, order, currency, comparecurrency, setCurrency }) {
 
     const [exchangeRateDateList, setExchangeRateDateList] = useState([]);
     const [date] = useState(new Date());
@@ -24,8 +24,9 @@ function OverTime({ reOrder, order, currency, secondcurrency, setCurrency }) {
         if (currency) {
             url = url + '&base=' + currency;
         }
-        if (secondcurrency) {
-            url = url + '&symbols=' + secondcurrency;
+
+        if (comparecurrency) {
+            url = url + '&symbols=' + comparecurrency;
         }
         fetch(url)
             .then(results => results.json())
@@ -38,7 +39,7 @@ function OverTime({ reOrder, order, currency, secondcurrency, setCurrency }) {
                 }
                 setExchangeRateDateList(arr);
             })
-    }, [currency, secondcurrency])
+    }, [currency, comparecurrency])
 
     let sortedList = exchangeRateDateList;
     
@@ -55,7 +56,7 @@ function OverTime({ reOrder, order, currency, secondcurrency, setCurrency }) {
         <div className="overtime">
             <Currency id={1} currency={currency} onCurrencyChange={setCurrency}/>
             <p style={{display: 'inline-block'}}>v</p>
-            <Currency id={2} currency={secondcurrency} onCurrencyChange={setCurrency}/>
+            <Currency id={2} currency={comparecurrency} onCurrencyChange={setCurrency}/>
             <br />
             <label>Order Date:</label>
             <select onChange={(event) => reOrder(event.target.value)}>
@@ -77,7 +78,7 @@ const mapStateToProps = (state, props) => {
     return {
         order: state.exchangeRates.order,
         currency: state.exchangeRates.currency,
-        secondcurrency: state.exchangeRates.secondcurrency
+        comparecurrency: state.exchangeRates.comparecurrency
     }
 }
 

@@ -5,7 +5,7 @@ export const REORDER = 'REORDER';
 export const SET_RATES = 'SET_RATES';
 export const SET_DATE = 'SET_DATE';
 export const SET_CURRENCY = 'SET_CURRENCY';
-export const SET_SECOND_CURRENCY = 'SET_SECOND_CURRENCY';
+export const SET_COMPARE_CURRENCY = 'SET_SECOND_CURRENCY';
 
 export function setRates(results) 
 {
@@ -35,7 +35,7 @@ export function setCurrency(id, currency)
 {
     if (id == 2) {
         return {
-            type: SET_SECOND_CURRENCY,
+            type: SET_COMPARE_CURRENCY,
             currency,
         }
     }
