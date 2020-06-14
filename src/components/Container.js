@@ -8,7 +8,6 @@ import Currency from './Currency.js';
 function Container() {
     return (
         <div className="container">
-            <h2>Euro €1 vs USD</h2>
             <br />
             <BrowserRouter>
             <Link to="/OverTime">

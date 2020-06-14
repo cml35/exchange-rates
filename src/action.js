@@ -5,7 +5,7 @@ export const REORDER = 'REORDER';
 export const SET_RATES = 'SET_RATES';
 export const SET_DATE = 'SET_DATE';
 export const SET_CURRENCY = 'SET_CURRENCY';
-export const SET_COMPARE_CURRENCY = 'SET_SECOND_CURRENCY';
+export const SET_COMPARE_CURRENCY = 'SET_COMPARE_CURRENCY';
 
 export function setRates(results) 
 {

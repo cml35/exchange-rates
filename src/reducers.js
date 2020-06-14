@@ -40,7 +40,7 @@ function exchangeRates(state = initialState, action) {
         case SET_COMPARE_CURRENCY:
             return {
                 ...state,
-                comparecurreny: action.currency
+                comparecurrency: action.currency
             }
         default: 
             return state

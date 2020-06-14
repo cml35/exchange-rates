@@ -28,13 +28,23 @@ function OverTime({ reOrder, order, currency, comparecurrency, setCurrency }) {
         if (comparecurrency) {
             url = url + '&symbols=' + comparecurrency;
         }
+
+        //By default we set it to AUD
+        if (typeof(comparecurrency) == 'undefined' && typeof(currency) == 'undefined') {
+            url = url + '&base=AUD&symbols=AUD';
+        }
+
         fetch(url)
             .then(results => results.json())
             .then(data => {    
                 const arr = [];            
                 for (let [key] of Object.entries(data.rates)) {
                     let obj = data.rates[key];
-                    let curr = obj[secondcurrency]; 
+                    let curr = obj[comparecurrency]; 
+                    //By default we set it to AUD
+                    if (typeof(curr) == 'undefined') {
+                        curr = obj['AUD'];
+                    }
                     arr.push({'date': key, 'value': curr})
                 }
                 setExchangeRateDateList(arr);
@@ -57,11 +67,12 @@ function OverTime({ reOrder, order, currency, comparecurrency, setCurrency }) {
             <Currency id={1} currency={currency} onCurrencyChange={setCurrency}/>
             <p style={{display: 'inline-block'}}>v</p>
             <Currency id={2} currency={comparecurrency} onCurrencyChange={setCurrency}/>
+            <p>{currency ? currency : 'AUD'} $1</p>
             <br />
             <label>Order Date:</label>
-            <select onChange={(event) => reOrder(event.target.value)}>
-                <option value="ASC">Ascending</option>
-                <option value="DESC">Descending</option>
+            <select onChange={(event) => reOrder(event.target.value)} value={order}>
+                <option value='ASC'>Ascending</option>
+                <option value='DESC'>Descending</option>
             </select>
             <br />
             <br />

@@ -23,13 +23,17 @@ function SpecificDate({ setSpecificDate, date, currency, setCurrency }) {
         if (currency) {
             url = url + '?base=' + currency;
         }
-        console.log(url);
         fetch(url)
             .then(results => results.json())
             .then(data => {
                 const arr = [];
                 for (let  [key, value] of Object.entries(data.rates)) {
-                    arr.push({'rate': key, 'value': value.toFixed(4)});
+                    if (typeof(currency) == 'undefined') {
+                        currency = 'AUD';
+                    }
+                    if (key != currency) {
+                        arr.push({'rate': key, 'value': value.toFixed(4)});   
+                    }
                 } 
                 setExchangeRateList(arr);
             })
