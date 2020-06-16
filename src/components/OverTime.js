@@ -5,7 +5,7 @@ import { reOrder, setCurrency } from '../action';
 import PropTypes from 'prop-types';
 import Currency from './Currency';
 
-function OverTime({ reOrder, order, currency, comparecurrency, setCurrency }) {
+export function OverTime({ reOrder, order, currency, comparecurrency, setCurrency }) {
 
     const [exchangeRateDateList, setExchangeRateDateList] = useState([]);
     const [date] = useState(new Date());

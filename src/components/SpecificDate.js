@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Currency from './Currency';
 import currenciesArray from './Currencies';
 
-function SpecificDate({ setSpecificDate, date, currency, setCurrency }) {
+export function SpecificDate({ setSpecificDate, date, currency, setCurrency }) {
     const [ exchangeRateList, setExchangeRateList ] = useState([]);
     const appendLeadingZeroes = (n) => {
         if(n <= 9){
@@ -37,6 +37,7 @@ function SpecificDate({ setSpecificDate, date, currency, setCurrency }) {
                 } 
                 setExchangeRateList(arr);
             })
+        
     }, [date, currency])
 
     return (

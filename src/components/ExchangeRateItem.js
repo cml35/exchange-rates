@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function ExchangeRateItem(props) {    
     const getItemKey = () => {
         if (props.item.rate) {
-            return props.item.rate;
+            return props.item.rate
         } else {
             return props.item.date;
         }
