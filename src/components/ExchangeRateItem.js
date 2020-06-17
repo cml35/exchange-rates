@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function ExchangeRateItem(props) {    
-    const getItemKey = () => {
-        if (props.item.rate) {
-            return props.item.rate
-        } else {
-            return props.item.date;
-        }
-    }
+function ExchangeRateItem(props) {
+    const { rate, date, value } = props.item;
 
     return (
         <tr className="exchange-item">
-            <td><p>{getItemKey()}</p></td>
-            <td><p>{props.item.value}</p></td>
+            <td><p>{rate || date}</p></td>
+            <td><p>{value}</p></td>
         </tr>
     );
 }

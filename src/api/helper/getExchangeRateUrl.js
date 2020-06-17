@@ -1,8 +1,4 @@
-
-
-// We could use Moment JS
-
-export const getFormattedDate = () => (new Date).getFullYear  () + '-' + ((new Date).getMonth() + 1).toString().padStart(2, '0') + '-' + (new Date).getDate().toString().padStart(2, '0');
+import { getFormattedDate } from './getFormattedDate';
 
 export const getExchangeRateUrl = (currency, comparecurrency) => {
   let url = 'https://api.exchangeratesapi.io/history?start_at=2018-01-01&end_at=' + getFormattedDate();

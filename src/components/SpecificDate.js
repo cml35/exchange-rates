@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { setSpecificDate, setCurrency } from '../action';
 import PropTypes from 'prop-types';
 import Currency from './Currency';
-import currenciesArray from './Currencies';
 
 export function SpecificDate({ setSpecificDate, date, currency, setCurrency }) {
     const [ exchangeRateList, setExchangeRateList ] = useState([]);

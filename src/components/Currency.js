@@ -1,5 +1,5 @@
 import React from 'react';
-import currenciesArray from './Currencies.js';
+import currenciesArray from '../constants/currencies';
 import { connect } from 'react-redux';
 import { setCurrency } from '../action';
 import PropTypes from 'prop-types';
