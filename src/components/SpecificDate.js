@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import ExchangeRateList from './ExchangeRateList';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from 'react-redux';
-import { setSpecificDate, setCurrency } from '../action';
 import PropTypes from 'prop-types';
 import Currency from './Currency';
+import { getFormattedDate } from '../api/helper/getFormattedDate';
+import DatePickerInput from './DatePickerInput';
 
-export function SpecificDate({ setSpecificDate, date, currency, setCurrency }) {
+export function SpecificDate({ date, currency, setCurrency }) {
     const [ exchangeRateList, setExchangeRateList ] = useState([]);
-    const appendLeadingZeroes = (n) => {
-        if(n <= 9){
-          return "0" + n;
-        }
-        return n;
-    }
 
     useEffect(() => {
-        const formattedDate = date.getFullYear  () + '-' + appendLeadingZeroes(date.getMonth() + 1) + '-' + appendLeadingZeroes(date.getDate());
-        let url = 'https://api.exchangeratesapi.io/' + formattedDate;
+        let url = 'https://api.exchangeratesapi.io/' + getFormattedDate();
         if (currency) {
             url = url + '?base=' + currency;
         }
@@ -45,11 +38,7 @@ export function SpecificDate({ setSpecificDate, date, currency, setCurrency }) {
             <p style={{display: 'inline-block'}}>$1</p>
             <br />
             <label>Date: </label>
-            <DatePicker
-                onChange={setSpecificDate}
-                selected={date}
-                dateFormat="yyyy-MM-dd"
-            />
+            <DatePickerInput date={date}/>
             <br />
             <br />
             <ExchangeRateList type="SpecificDate" listItems={exchangeRateList}/>
@@ -61,15 +50,11 @@ SpecificDate.propTypes = {
     date: PropTypes.string
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
     return {
         date: state.exchangeRates.date || new Date(),
         currency: state.exchangeRates.currency
     }
-}
-
-const mapDispatchToProps = {
-    setSpecificDate
 }
 
 export default connect(mapStateToProps)(SpecificDate)
