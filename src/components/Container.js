@@ -1,6 +1,5 @@
 import React from 'react';
-import ExchangeRateList from './ExchangeRateList.js';
-import { BrowserRouter, Route, Link, withRouter, useHistory, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import OverTime from './OverTime.js';
 import SpecificDate from './SpecificDate.js';
 

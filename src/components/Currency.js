@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import currenciesArray from './Currencies.js';
 import { connect } from 'react-redux';
 import { setCurrency } from '../action';
 import PropTypes from 'prop-types';
 
-function Currency({ id, currency, onCurrencyChange }) {
+function Currency({ id, currency }) {
     const getCurrencies = () => {
         return currenciesArray.map((currency) => <option>{currency}</option> )
     }
 
     return (
         <div className="currency" style={{display: "inline-block"}}>
-            <select onChange={(event) => onCurrencyChange(id, event.target.value)} value={currency}>
+            <select onChange={(event) => setCurrency(id, event.target.value)} value={currency}>
                 {getCurrencies()}
-            </select>            
+            </select>
         </div>
     );
 }
@@ -22,4 +22,8 @@ Currency.propType = {
     currency: PropTypes.string
 }
 
-export default Currency;
+const mapDispatchToProps = {
+  setCurrency
+}
+
+export default connect(null, mapDispatchToProps)(Currency);

@@ -4,55 +4,20 @@ import { connect } from 'react-redux';
 import { reOrder, setCurrency } from '../action';
 import PropTypes from 'prop-types';
 import Currency from './Currency';
+import OrderDateDropDown from './OrderDateDropDown';
+import { apiRequest } from '../api/apiRequest';
 
-export function OverTime({ reOrder, order, currency, comparecurrency, setCurrency }) {
+
+export function OverTime({ reOrder, order, currency, comparecurrency }) {
 
     const [exchangeRateDateList, setExchangeRateDateList] = useState([]);
-    const [date] = useState(new Date());
 
-    function appendLeadingZeroes(n) {
-        if(n <= 9){
-          return "0" + n;
-        }
-        return n;
-    }
-
-    const formattedDate = date.getFullYear  () + '-' + appendLeadingZeroes(date.getMonth() + 1) + '-' + appendLeadingZeroes(date.getDate());
     useEffect(() => {
-        let url = 'https://api.exchangeratesapi.io/history?start_at=2018-01-01&end_at=' + formattedDate;
-
-        if (currency) {
-            url = url + '&base=' + currency;
-        }
-
-        if (comparecurrency) {
-            url = url + '&symbols=' + comparecurrency;
-        }
-
-        //By default we set it to AUD
-        if (typeof(comparecurrency) == 'undefined' && typeof(currency) == 'undefined') {
-            url = url + '&base=AUD&symbols=AUD';
-        }
-
-        fetch(url)
-            .then(results => results.json())
-            .then(data => {    
-                const arr = [];            
-                for (let [key] of Object.entries(data.rates)) {
-                    let obj = data.rates[key];
-                    let curr = obj[comparecurrency]; 
-                    //By default we set it to AUD
-                    if (typeof(curr) == 'undefined') {
-                        curr = obj['AUD'];
-                    }
-                    arr.push({'date': key, 'value': curr})
-                }
-                setExchangeRateDateList(arr);
-            })
+        apiRequest(currency, comparecurrency).then((arr) => setExchangeRateDateList(arr));
     }, [currency, comparecurrency])
 
     let sortedList = exchangeRateDateList;
-    
+
     sortedList.sort((x, y) => {
         let xDate = new Date(x.date);
         let yDate = new Date(y.date);
@@ -68,12 +33,10 @@ export function OverTime({ reOrder, order, currency, comparecurrency, setCurrenc
             <p style={{display: 'inline-block'}}>v</p>
             <Currency id={2} currency={comparecurrency} onCurrencyChange={setCurrency}/>
             <p>{currency ? currency : 'AUD'} $1</p>
+            {/*Use Material UI */}
             <br />
             <label>Order Date:</label>
-            <select onChange={(event) => reOrder(event.target.value)} value={order}>
-                <option value='ASC'>Ascending</option>
-                <option value='DESC'>Descending</option>
-            </select>
+                <OrderDateDropDown order={order}/>
             <br />
             <br />
             <ExchangeRateList type="OverTime" listItems={sortedList}/>
@@ -85,17 +48,13 @@ OverTime.propTypes = {
     order: PropTypes.string
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
+    const { order, currency, comparecurrency} = state.exchangeRates;
     return {
-        order: state.exchangeRates.order,
-        currency: state.exchangeRates.currency,
-        comparecurrency: state.exchangeRates.comparecurrency
+        order,
+        currency,
+        comparecurrency,
     }
 }
 
-const mapDispatchToProps = {
-    reOrder,
-    setCurrency
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(OverTime)
+export default connect(mapStateToProps)(OverTime)

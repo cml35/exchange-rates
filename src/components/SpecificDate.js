@@ -15,7 +15,7 @@ export function SpecificDate({ setSpecificDate, date, currency, setCurrency }) {
           return "0" + n;
         }
         return n;
-    } 
+    }
 
     useEffect(() => {
         const formattedDate = date.getFullYear  () + '-' + appendLeadingZeroes(date.getMonth() + 1) + '-' + appendLeadingZeroes(date.getDate());
@@ -32,12 +32,12 @@ export function SpecificDate({ setSpecificDate, date, currency, setCurrency }) {
                         currency = 'AUD';
                     }
                     if (key != currency) {
-                        arr.push({'rate': key, 'value': value.toFixed(4)});   
+                        arr.push({'rate': key, 'value': value.toFixed(4)});
                     }
-                } 
+                }
                 setExchangeRateList(arr);
             })
-        
+
     }, [date, currency])
 
     return (
@@ -70,8 +70,7 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = {
-    setSpecificDate,
-    setCurrency
+    setSpecificDate
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SpecificDate)
+export default connect(mapStateToProps)(SpecificDate)
