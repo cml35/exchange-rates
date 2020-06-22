@@ -3,7 +3,7 @@ import {
     SET_RATES,
     SET_DATE,
     SET_CURRENCY,
-    SET_COMPARE_CURRENCY
+    SET_BASE_CURRENCY
 } from './action.js';
 import { combineReducers } from 'redux';
 
@@ -37,10 +37,10 @@ function exchangeRates(state = initialState, action) {
                 ...state,
                 currency: action.currency
             }
-        case SET_COMPARE_CURRENCY:
+        case SET_BASE_CURRENCY:
             return {
                 ...state,
-                comparecurrency: action.currency
+                baseCurrency: action.baseCurrency
             }
         default: 
             return state

@@ -5,7 +5,7 @@ export const REORDER = 'REORDER';
 export const SET_RATES = 'SET_RATES';
 export const SET_DATE = 'SET_DATE';
 export const SET_CURRENCY = 'SET_CURRENCY';
-export const SET_COMPARE_CURRENCY = 'SET_COMPARE_CURRENCY';
+export const SET_BASE_CURRENCY = 'SET_BASE_CURRENCY';
 
 export function setRates(results) 
 {
@@ -31,17 +31,18 @@ export function setSpecificDate(date)
     }
 }
 
-export function setCurrency(id, currency)
+export function setCurrency(currency)
 {
-    if (id == 2) {
-        return {
-            type: SET_COMPARE_CURRENCY,
-            currency,
-        }
-    }
-    
     return {
         type: SET_CURRENCY,
         currency,
+    }
+}
+
+export function setBaseCurrency(baseCurrency)
+{
+    return {
+        type: SET_BASE_CURRENCY,
+        baseCurrency,
     }
 }
