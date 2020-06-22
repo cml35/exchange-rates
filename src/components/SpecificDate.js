@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ExchangeRateList from './ExchangeRateList';
 import "react-datepicker/dist/react-datepicker.css";
+import { setCurrency as setCurrencyAction } from '../action';
 import { connect } from 'react-redux';
-import { setCurrency } from '../action';
 import PropTypes from 'prop-types';
 import CurrencyDropDown from './CurrencyDropDown';
 import { getFormattedDate } from '../api/helper/getFormattedDate';
@@ -35,7 +35,7 @@ export function SpecificDate({ date, currency, setCurrency }) {
 
     return (
         <div className="specific-date">
-            <CurrencyDropDown currency={currency} />
+            <CurrencyDropDown currency={currency} setCurrency={setCurrency}/>
             <p style={{display: 'inline-block'}}>$1</p>
             <br />
             <label>Date: </label>
@@ -58,4 +58,8 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(SpecificDate)
+const mapDispatchToProps =  {
+    setCurrency: setCurrencyAction, 
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpecificDate)
