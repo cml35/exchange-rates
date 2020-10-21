@@ -8,6 +8,7 @@ import CurrencyDropDown from './CurrencyDropDown';
 import { getFormattedDate } from '../api/helper/getFormattedDate';
 import DatePickerInput from './DatePickerInput';
 
+//Specific Date component
 export function SpecificDate({ date, currency, setCurrency }) {
     const [ exchangeRateList, setExchangeRateList ] = useState([]);
 
